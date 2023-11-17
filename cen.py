@@ -28,13 +28,10 @@ def add_new_record(mycol, record):
   
 # Prompt the user for the student's name.
 name = input("Enter the student's name: ")
-
 # Prompt the user for the student's hall.
 hall = input("Enter the student's hall: ")
-
 # Prompt the user for the student's room.
 room = input("Enter the student's room: ")
-
 # Prompt the user for the student's matric number.
 matric_number = input("Enter the student's matric number: ")
 
@@ -50,3 +47,68 @@ new_record_id = add_new_record(mycol, new_record)
 
 # Print a confirmation message.
 print("New record added successfully!")
+
+def add_new_record(mycol,record):
+    result = mycol.insert_one(record)
+    return result.inserted_id
+
+def find_record(mycol):
+    print("1. Name")
+    print("2. Hall")
+    print("3. Room")
+    print("4. Matric-Number")
+    find= input("What do you want to find: ")
+
+    if find == "1":
+        field_to_check = "Name"
+        for x in mycol.find({field_to_check: {"$exists": True}}):
+           print(x)
+
+    if find == "2":
+        field_to_check = "Hall"
+        for x in mycol.find({field_to_check: {"$exists": True}}):
+           print(x)
+    
+    if find == "3":
+        field_to_check = "Room"
+        for x in mycol.find({field_to_check: {"$exists": True}}):
+           print(x)
+    
+    if find == "4":
+        field_to_check = "Matric-number"
+        for x in mycol.find({field_to_check: {"$exists": True}}):
+            print(x)
+
+# def update(myquery, newvalues):
+
+
+
+run = True
+while run == True :
+    print("1.Add a new record")
+    print("2.Find a record")
+    print("3.Update a record")
+    print("4.Delete a record")
+    print("5.Exit")
+    res = input("What would you like to do:")
+
+    if res == "1" :
+        print("You want to add a new record")
+        add_new_record()
+    elif res == "2":
+        print("You want to find a record")
+        find_record()
+    elif res == "3":
+        print("YOu want to update a record")
+        # update()
+    elif res == "4":
+        print("You want to delete a record")
+        # delete()
+    else:
+        print("Do you want to quit:")
+        res2 = input("Y/N:" )
+        if res2 == "Y":
+            run = False
+            print("Goodbye")
+        elif res2 == "N":
+            run == True
